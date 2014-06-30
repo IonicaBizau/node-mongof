@@ -4,7 +4,7 @@ var MyDatabase = new JsonDb();
 var MyAwesomeCollection = MyDatabase.initCollection({
     inputFile: "./docs-in.json"
   , outputFile: "./docs-out.json"
-  , uri: "mongodb://localhost:27017/integration_test"
+  , uri: "mongodb://localhost:27017/test"
   , collection: "myCol"
   , autoinit: true
 }, function (err) {
