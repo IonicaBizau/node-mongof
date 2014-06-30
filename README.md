@@ -14,7 +14,7 @@ $ npm install
 # Example
 ```js
 // Dependencies
-var JsonDb = require("../index")
+var JsonDb = require("mongo-sync-files")
   , Faker = require("faker")
   ;
 
