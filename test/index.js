@@ -1,6 +1,5 @@
 // Dependencies
 var JsonDb = require("../index")
-  , Path = require("path")
   , Faker = require("faker")
   ;
 
@@ -9,8 +8,8 @@ var MyDatabase = new JsonDb();
 
 // Create collection instance
 var MyAwesomeCollection = MyDatabase.initCollection({
-    inputFile: Path.resolve("./docs-in.json")
-  , outputFile: Path.resolve("./docs-out.json")
+    inputFile: __dirname + "/docs-in.json"
+  , outputFile: __dirname + "/docs-out.json"
   , uri: "mongodb://localhost:27017/test"
   , collection: "myCol"
   , autoInit: true
@@ -32,7 +31,7 @@ var MyAwesomeCollection = MyDatabase.initCollection({
         MyAwesomeCollection.insert({
             name: Faker.Name.findName()
           , email: Faker.Internet.email()
-          , age: Faker.Helpers.randomNumber()
+          , age: Faker.Helpers.randomNumber(90)
         }, function (err, docs) {
 
             // Handle error
