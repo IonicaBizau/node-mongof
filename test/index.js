@@ -10,7 +10,7 @@ var MyAwesomeCollection = MyDatabase.initCollection({
   , outputFile: "./docs-out.json"
   , uri: "mongodb://localhost:27017/test"
   , collection: "myCol"
-  , autoinit: true
+  , autoInit: true
 }, function (err) {
 
     // Handle error

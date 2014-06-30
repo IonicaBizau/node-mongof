@@ -181,6 +181,8 @@ var JsonDb = module.exports = function (options) {
                         if (err) { return callback(err); }
                         collectionInstance.insert(data, callback);
                     });
+                } else {
+                    callback(null, col);
                 }
             } else {
                 callback(null, col);
