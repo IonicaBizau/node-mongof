@@ -12,7 +12,6 @@
   "devDependencies": {
     "faker": "^1.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "node test/index.js"
   },
