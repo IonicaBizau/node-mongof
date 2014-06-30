@@ -23,9 +23,19 @@ var MyAwesomeCollection = MyDatabase.initCollection({
         if (err) { throw err; }
 
         // Output
-        console.log(docs);
+        console.log("Documents: ", docs);
 
-        // Close database
-        MyAwesomeCollection.database.close();
+        // Insert
+        MyAwesomeCollection.insert({name: "Ionică Bizău", age: 18}, function (err, docs) {
+
+            // Handle error
+            if (err) { throw err; }
+
+            console.log("Successfully inserted a new document: ", docs);
+            console.log("Check out the content of the following file: ", MyAwesomeCollection._options.outputFile);
+
+            // Close database
+            MyAwesomeCollection.database.close();
+        });
     });
 });
