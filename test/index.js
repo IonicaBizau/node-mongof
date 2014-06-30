@@ -9,4 +9,7 @@ var MyAwesomeCollection = MyDatabase.initCollection({
   , autoinit: true
 }, function (err) {
     console.log("Inited collection");
+    MyAwesomeCollection.insert({name: "Ionică", age: 18}, function () {
+        console.log(arguments);
+    });
 });
