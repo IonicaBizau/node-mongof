@@ -139,6 +139,7 @@ var JsonDb = module.exports = function (options) {
                             args.splice(args.length - 1, 1);
                         }
 
+
                         if (self._options.ignoreCallbackFor.indexOf(key) === -1) {
                             // Push push the real callback
                             args.push(function (err, data) {
@@ -178,8 +179,8 @@ var JsonDb = module.exports = function (options) {
                 try {
                     data = require(Path.resolve(options.inputFile))
                 } catch (e) { data = null }
-                if (data) {
-                    collectionInstance.remove({}, {multi: true}, function (err, data) {
+                if (data && data.length) {
+                    collectionInstance.remove({}, {multi: true}, function (err) {
                         if (err) { return callback(err); }
                         collectionInstance.insert(data, callback);
                     });
