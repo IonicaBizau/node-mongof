@@ -1,6 +1,10 @@
+// Dependencies
 var JsonDb = require("../index");
 
+// Create database instance
 var MyDatabase = new JsonDb();
+
+// Create collection instance
 var MyAwesomeCollection = MyDatabase.initCollection({
     inputFile: "./docs-in.json"
   , outputFile: "./docs-out.json"
@@ -8,8 +12,20 @@ var MyAwesomeCollection = MyDatabase.initCollection({
   , collection: "myCol"
   , autoinit: true
 }, function (err) {
+
+    // Handle error
+    if (err) { throw err; }
+
+    // Run a Mongo request
     MyAwesomeCollection.find({}).toArray(function (err, docs) {
-        console.log(err || docs);
+
+        // Handle error
+        if (err) { throw err; }
+
+        // Output
+        console.log(docs);
+
+        // Close database
         MyAwesomeCollection.database.close();
     });
 });
