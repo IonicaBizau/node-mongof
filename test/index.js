@@ -1,13 +1,15 @@
 // Dependencies
-var JsonDb = require("../index");
+var JsonDb = require("../index")
+  , Path = require("path")
+  ;
 
 // Create database instance
 var MyDatabase = new JsonDb();
 
 // Create collection instance
 var MyAwesomeCollection = MyDatabase.initCollection({
-    inputFile: "./docs-in.json"
-  , outputFile: "./docs-out.json"
+    inputFile: Path.resolve("./docs-in.json")
+  , outputFile: Path.resolve("./docs-out.json")
   , uri: "mongodb://localhost:27017/test"
   , collection: "myCol"
   , autoInit: true
