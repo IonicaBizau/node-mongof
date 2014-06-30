@@ -20,6 +20,8 @@ var JsonDb = module.exports = function (options) {
     // Force options to be an object and process data
     options = Object(options);
     options.collections = options.collections || [];
+    options.ignoreSyncFor = options.ignoreSyncFor || [];
+    options.ignoreCallbackFor = options.ignoreCallbackFor || ["find", "findOne"];
 
     // Initialize self
     var self = new EventEmitter();
@@ -127,37 +129,50 @@ var JsonDb = module.exports = function (options) {
                     // Attach the new method
                     collectionInstance[key] = function () {
 
+                        debugger;
                         // Handle arguments
                         var args = Array.prototype.slice.call(arguments, 0);
                         args.sort();
 
                         // Get provided callback
                         var providedCallback = args[args.length - 1];
-                        args.splice(args.length - 1, 1);
 
-                        // Push push the real callback
-                        args.push(function (err, data) {
+                        if (typeof providedCallback === "function") {
+                            args.splice(args.length - 1, 1);
+                        }
 
-                            var cSelf = this
-                              , cArguments = arguments
-                              , opCallback = function () {
-                                    providedCallback.apply(this, cArguments);
+                        if (self._options.ignoreCallbackFor.indexOf(key) === -1) {
+                            // Push push the real callback
+                            args.push(function (err, data) {
+
+                                var cSelf = this
+                                  , cArguments = arguments
+                                  , opCallback = function () {
+                                        if (typeof providedCallback !== "function") { return; }
+                                        providedCallback.apply(this, cArguments);
+                                    }
+                                  ;
+
+                                  debugger;
+                                // Ignore sync
+                                if (self._options.ignoreSyncFor.indexOf(key) !== -1) {
+                                    return opCallback.apply(cSelf, cArguments);
                                 }
-                              ;
 
-                            if (err) { return opCallback.call(cSelf, err); }
-
-                            // Stringify the documents
-                            col.find({}).toArray(function (err, docs) {
                                 if (err) { return opCallback.call(cSelf, err); }
-                                Fs.writeFile(options.outputFile, JSON.stringify(docs, null, 2), function (err) {
+
+                                // Stringify the documents
+                                col.find({}).toArray(function (err, docs) {
                                     if (err) { return opCallback.call(cSelf, err); }
-                                    opCallback.apply(cSelf, cArguments);
+                                    Fs.writeFile(options.outputFile, JSON.stringify(docs, null, 2), function (err) {
+                                        if (err) { return opCallback.call(cSelf, err); }
+                                        opCallback.apply(cSelf, cArguments);
+                                    });
                                 });
                             });
-                        });
+                        }
 
-                        col[key].apply(col, args);
+                        return col[key].apply(col, args);
                     }
                 })(key);
             }
