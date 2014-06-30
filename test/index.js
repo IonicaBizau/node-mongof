@@ -6,6 +6,18 @@ var JsonDb = require("../index")
 // Create database instance
 var MyDatabase = new JsonDb();
 
+function generateFakeDataArray() {
+    var docs = [];
+    for (var i = 0; i < 30; ++i) {
+        docs.push({
+            name: Faker.Name.findName()
+          , email: Faker.Internet.email()
+          , age: Faker.Helpers.randomNumber(90)
+        });
+    }
+    return docs;
+}
+
 // Create collection instance
 var MyAwesomeCollection = MyDatabase.initCollection({
     inputFile: __dirname + "/docs-in.json"
@@ -28,11 +40,7 @@ var MyAwesomeCollection = MyDatabase.initCollection({
         console.log("Documents: ", docs);
 
         // Insert
-        MyAwesomeCollection.insert({
-            name: Faker.Name.findName()
-          , email: Faker.Internet.email()
-          , age: Faker.Helpers.randomNumber(90)
-        }, function (err, docs) {
+        MyAwesomeCollection.insert(generateFakeDataArray(), function (err, docs) {
 
             // Handle error
             if (err) { throw err; }
