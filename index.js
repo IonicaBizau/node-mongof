@@ -111,6 +111,8 @@ var JsonDb = module.exports = function (options) {
           , collectionInstance = new EventEmitter()
           ;
 
+        collectionInstance._options = options;
+
         self.getCollection(uri, collection, function (err, col, db) {
             if (err) { return callback(err); }
 
