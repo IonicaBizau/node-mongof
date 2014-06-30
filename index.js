@@ -36,13 +36,13 @@ var JsonDb = module.exports = function (options) {
 
         MongoClient.connect(uri, function(err, db) {
             if (err) { return callback(err); }
-            callback(null, cached[uri] = db);
+            callback(null, self._cache[uri] = db);
         });
     };
 
     self.getCollection = function (dbUri, collection, callback) {
 
-        var cached = Object(self._cache[dbUri]).collections[collection];
+        var cached = Object(Object(self._cache[dbUri]).collections)[collection];
         if (cached) { return callback(null, cached); }
 
         self.getDatabase(dbUri, function (err, db) {
@@ -116,7 +116,7 @@ var JsonDb = module.exports = function (options) {
                     });
                 }
             } else {
-                callback(null, db, col);
+                callback(null, col);
             }
         });
     };
