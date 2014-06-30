@@ -6,6 +6,15 @@ var Mongo = require("mongodb")
   , Path = require("path")
   ;
 
+/**
+ * JsonDb
+ * Creates a new instance of JsonDb.
+ *
+ * @name JsonDb
+ * @function
+ * @param {Object} options The options object of the constructor.
+ * @return {EventEmitter} The instance of JsonDb object
+ */
 var JsonDb = module.exports = function (options) {
 
     // Force options to be an object and process data
@@ -18,6 +27,18 @@ var JsonDb = module.exports = function (options) {
     self._instance = this;
     self._cache = {};
 
+    /**
+     * addInCache
+     * Cache database and collection
+     *
+     * @name addInCache
+     * @function
+     * @param {String} uri The Mongo database URI string
+     * @param {Object} dbObj Database object
+     * @param {String} colName Collection name (optional)
+     * @param {Object} colObj Collection object (optional)
+     * @return
+     */
     self.addInCache = function (uri, dbObj, colName, colObj) {
 
         var uriCache = self._cache[uri] = self._cache[uri] || {};
@@ -29,6 +50,16 @@ var JsonDb = module.exports = function (options) {
         uriCache.collections[colName] = colObj;
     };
 
+    /**
+     * getDatabase
+     * Returns (via callback) a database object from cache or fetched via Mongo functions.
+     *
+     * @name getDatabase
+     * @function
+     * @param {String} uri The Mongo database URI string
+     * @param {Function} callback The callback function
+     * @return
+     */
     self.getDatabase = function (uri, callback) {
 
         var cached = self._cache[uri];
@@ -40,6 +71,17 @@ var JsonDb = module.exports = function (options) {
         });
     };
 
+    /**
+     * getCollection
+     * Returns (via callback) the collection object from cache
+     *
+     * @name getCollection
+     * @function
+     * @param {String} dbUri The Mongo database URI string
+     * @param {String} collection Collection name
+     * @param {Function} callback The callback function
+     * @return
+     */
     self.getCollection = function (dbUri, collection, callback) {
 
         var cached = Object(Object(self._cache[dbUri]).collections)[collection];
@@ -51,6 +93,16 @@ var JsonDb = module.exports = function (options) {
         });
     };
 
+    /**
+     * initCollection
+     * Inits the collection and returns the collection instance.
+     *
+     * @name initCollection
+     * @function
+     * @param {Object} options The options for initing the collection
+     * @param {Function} callback The callback function
+     * @return {EventEmitter} The instance of collection object.
+     */
     self.initCollection = function (options, callback) {
 
         var uri = options.uri
