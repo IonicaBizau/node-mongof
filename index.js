@@ -47,7 +47,7 @@ var JsonDb = module.exports = function (options) {
 
         self.getDatabase(dbUri, function (err, db) {
             if (err) { return callback(err); }
-            callback(null, self._cache[dbUri].collections[collection] = db.collection(collection));
+            callback(null, self._cache[dbUri].collections[collection] = db.collection(collection), db);
         });
     };
 
@@ -60,9 +60,14 @@ var JsonDb = module.exports = function (options) {
           , collectionInstance = new EventEmitter()
           ;
 
-        self.getCollection(uri, collection, function (err, col) {
+        self.getCollection(uri, collection, function (err, col, db) {
             if (err) { return callback(err); }
 
+            // Attach collection and database fields
+            collectionInstance.collection = col;
+            collectionInstance.database = db;
+
+            // Attach Mongo functions
             for (var key in col) {
                 (function (key) {
                     var keyValue = col[key];
@@ -119,6 +124,8 @@ var JsonDb = module.exports = function (options) {
                 callback(null, col);
             }
         });
+
+        return collectionInstance;
     };
 
     var callbackData = {err: [], data: []};
