@@ -129,7 +129,6 @@ var JsonDb = module.exports = function (options) {
                     // Attach the new method
                     collectionInstance[key] = function () {
 
-                        debugger;
                         // Handle arguments
                         var args = Array.prototype.slice.call(arguments, 0);
                         args.sort();
@@ -153,7 +152,6 @@ var JsonDb = module.exports = function (options) {
                                     }
                                   ;
 
-                                  debugger;
                                 // Ignore sync
                                 if (self._options.ignoreSyncFor.indexOf(key) !== -1) {
                                     return opCallback.apply(cSelf, cArguments);
