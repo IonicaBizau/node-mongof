@@ -48,7 +48,7 @@ var MyAwesomeCollection = MyDatabase.initCollection({
 
 # Documentation
 
-## `JsonDb(options)`
+## `new JsonDb(options)`
 Creates a new instance of JsonDb.
 
 ### Params:
