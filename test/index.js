@@ -8,8 +8,8 @@ var MyAwesomeCollection = MyDatabase.initCollection({
   , collection: "myCol"
   , autoinit: true
 }, function (err) {
-    console.log("Inited collection");
-    MyAwesomeCollection.find({}).toArray(function () {
-        console.log(arguments);
+    MyAwesomeCollection.find({}).toArray(function (err, docs) {
+        console.log(err || docs);
+        MyAwesomeCollection.database.close();
     });
 });
