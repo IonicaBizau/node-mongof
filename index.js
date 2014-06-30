@@ -39,7 +39,6 @@ var JsonDb = module.exports = function (options) {
      * @param {Object} dbObj Database object
      * @param {String} colName Collection name (optional)
      * @param {Object} colObj Collection object (optional)
-     * @return
      */
     self.addInCache = function (uri, dbObj, colName, colObj) {
 
@@ -60,7 +59,6 @@ var JsonDb = module.exports = function (options) {
      * @function
      * @param {String} uri The Mongo database URI string
      * @param {Function} callback The callback function
-     * @return
      */
     self.getDatabase = function (uri, callback) {
 
@@ -82,7 +80,6 @@ var JsonDb = module.exports = function (options) {
      * @param {String} dbUri The Mongo database URI string
      * @param {String} collection Collection name
      * @param {Function} callback The callback function
-     * @return
      */
     self.getCollection = function (dbUri, collection, callback) {
 
