@@ -1,8 +1,12 @@
 var JsonDb = require("../index");
 
-var myDb = new JsonDb({
-    collection: "articles"
-}, function (err, db, col) {
-    console.log(err || "Success");
-    myDb.insert({name: "ionica"});
+var MyDatabase = new JsonDb();
+var MyAwesomeCollection = MyDatabase.initCollection({
+    inputFile: "./docs-in.json"
+  , outputFile: "./docs-out.json"
+  , uri: "mongodb://localhost:27017/integration_test"
+  , collection: "myCol"
+  , autoinit: true
+}, function (err) {
+    console.log("Inited collection");
 });
