@@ -2,4 +2,5 @@
 *.swo
 *~
 *.log
+*.json
 node_modules
