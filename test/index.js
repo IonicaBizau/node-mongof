@@ -1,6 +1,7 @@
 // Dependencies
 var JsonDb = require("../index")
   , Path = require("path")
+  , Faker = require("faker")
   ;
 
 // Create database instance
@@ -28,7 +29,11 @@ var MyAwesomeCollection = MyDatabase.initCollection({
         console.log("Documents: ", docs);
 
         // Insert
-        MyAwesomeCollection.insert({name: "Ionică Bizău", age: 18}, function (err, docs) {
+        MyAwesomeCollection.insert({
+            name: Faker.Name.findName()
+          , email: Faker.Internet.email()
+          , age: Faker.Helpers.randomNumber()
+        }, function (err, docs) {
 
             // Handle error
             if (err) { throw err; }
