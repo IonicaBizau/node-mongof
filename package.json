@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:IonicaBizau/node-mongo-sync.git"
+    "url": "git@github.com:IonicaBizau/node-mongo-sync-files.git"
   },
   "keywords": [
     "mongo",
@@ -29,7 +29,7 @@
   "author": "Ionică Bizău <bizauionica@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IonicaBizau/node-mongo-sync/issues"
+    "url": "https://github.com/IonicaBizau/node-mongo-sync-files/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/node-mongo-sync"
+  "homepage": "https://github.com/IonicaBizau/node-mongo-sync-files"
 }
