@@ -1,5 +1,5 @@
-Mongo Sync
-==========
+Mongo Sync Files
+================
 Sync MongoDB collections with JSON files.
 
 # Installation
