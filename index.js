@@ -132,15 +132,13 @@ var JsonDb = module.exports = function (options) {
                         var args = Array.prototype.slice.call(arguments, 0);
                         args.sort();
 
-                        // Get provided callback
-                        var providedCallback = args[args.length - 1];
+                        if (self._options.ignoreCallbackFor.indexOf(key) === -1) {
+                            // Get provided callback
+                            var providedCallback = args[args.length - 1];
+                            if (typeof providedCallback === "function") {
+                                args.splice(args.length - 1, 1);
+                            }
 
-                        if (typeof providedCallback === "function") {
-                            args.splice(args.length - 1, 1);
-                        }
-
-
-                        if (self._options.ignoreCallbackFor.indexOf(key) !== -1) {
                             // Push push the real callback
                             args.push(function (err, data) {
 
