@@ -140,7 +140,7 @@ var JsonDb = module.exports = function (options) {
                         }
 
 
-                        if (self._options.ignoreCallbackFor.indexOf(key) === -1) {
+                        if (self._options.ignoreCallbackFor.indexOf(key) !== -1) {
                             // Push push the real callback
                             args.push(function (err, data) {
 
