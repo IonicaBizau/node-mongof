@@ -177,14 +177,16 @@ var JsonDb = module.exports = function (options) {
                 try {
                     data = require(Path.resolve(options.inputFile))
                 } catch (e) { data = null }
-                if (data && data.length) {
-                    collectionInstance.remove({}, {multi: true}, function (err) {
-                        if (err) { return callback(err); }
-                        collectionInstance.insert(data, callback);
-                    });
-                } else {
-                    callback(null, col);
-                }
+                (function (data) {
+                    if (data && data.length) {
+                        collectionInstance.remove({}, {multi: true}, function (err) {
+                            if (err) { return callback(err); }
+                            collectionInstance.insert(data, callback);
+                        });
+                    } else {
+                        callback(null, col);
+                    }
+                })(data);
             } else {
                 callback(null, col);
             }
