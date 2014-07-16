@@ -116,6 +116,9 @@ Inits the collection and returns the collection instance.
 * **EventEmitter** The instance of collection object.
 
 # Changelog
+## `v0.1.3`
+ - Introduced an anonymous function call
+
 ## `v0.1.2`
  - Remove provided callback from args if callback is not ignored
 
