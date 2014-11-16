@@ -7,15 +7,30 @@ var Mongo = require("mongodb")
   ;
 
 /**
- * JsonDb
- * Creates a new instance of JsonDb.
+ * MongoSyncFiles
+ * Creates a new instance of MongoSyncFiles.
  *
- * @name JsonDb
+ * @name MongoSyncFiles
  * @function
- * @param {Object} options The options object of the constructor.
- * @return {EventEmitter} The instance of JsonDb object
+ * @param {Object} options An object containing the following properties:
+ *
+ *  - `collections` (Array): An array of objects with the needed fields for initing the collections that should be inited (default: `[]`).
+ *  - `ignoreSyncFor` (Array): An array with Mongo collection method names for that sync should be diabled (default: `[]`).
+ *  - `ignoreCallbackFor` (array): An array with Mongo collection method names for that callback should be diabled (default: `["find", "findOne"]`).
+ *
+ * @param {Function} callback The callback function. Called with `err`, `collections` and `data`. `collections` is an object like this:
+ *
+ *   ```js
+ *   {
+ *      "collectionName": <collectionObject>
+ *   }
+ *   ```
+ *
+ * `<collectionObject>` is an object containing all Mongo collection methods.
+ *
+ * @return {EventEmitter} The instance of MongoSyncFiles object.
  */
-var JsonDb = module.exports = function (options) {
+var MongoSyncFiles = module.exports = function (options, callback) {
 
     // Force options to be an object and process data
     options = Object(options);
@@ -28,6 +43,8 @@ var JsonDb = module.exports = function (options) {
     self._options = options;
     self._instance = this;
     self._cache = {};
+
+    callback = callback || function () {};
 
     /**
      * addInCache
@@ -98,7 +115,16 @@ var JsonDb = module.exports = function (options) {
      *
      * @name initCollection
      * @function
-     * @param {Object} options The options for initing the collection
+     * @param {Object} options An object containing the following properties:
+     *
+     *  - `uri` (String): The MongoDB uri.
+     *  - `inputFile` (String): The path to the input file.
+     *  - `outputFile` (String): The path to the output file.
+     *  - `outputFile` (String): The path to the output file.
+     *  - `collection` (String): The collection that should be synced.
+     *  - `outFields` (String): An object with fields that should be exported/ignored on stringify (default: `{_id: 0}`).
+     *  - `autoInit` (Boolean): If `true`, the collection will be inited with input data.
+     *
      * @param {Function} callback The callback function
      * @return {EventEmitter} The instance of collection object.
      */
@@ -109,6 +135,7 @@ var JsonDb = module.exports = function (options) {
           , outputFile = options.outputFile
           , collection = options.collection
           , collectionInstance = new EventEmitter()
+          , outFields = options.outFields || { _id: 0 }
           ;
 
         collectionInstance._options = options;
@@ -158,7 +185,7 @@ var JsonDb = module.exports = function (options) {
                                 if (err) { return opCallback.call(cSelf, err); }
 
                                 // Stringify the documents
-                                col.find({}).toArray(function (err, docs) {
+                                col.find({}, outFields).toArray(function (err, docs) {
                                     if (err) { return opCallback.call(cSelf, err); }
                                     Fs.writeFile(options.outputFile, JSON.stringify(docs, null, 2), function (err) {
                                         if (err) { return opCallback.call(cSelf, err); }
@@ -169,14 +196,14 @@ var JsonDb = module.exports = function (options) {
                         }
 
                         return col[key].apply(col, args);
-                    }
+                    };
                 })(key);
             }
 
             if (options.autoInit === true) {
                 try {
-                    data = require(Path.resolve(options.inputFile))
-                } catch (e) { data = null }
+                    data = require(Path.resolve(options.inputFile));
+                } catch (e) { data = null; }
                 (function (data) {
                     if (data && data.length) {
                         collectionInstance.remove({}, {multi: true}, function (err) {
@@ -195,16 +222,29 @@ var JsonDb = module.exports = function (options) {
         return collectionInstance;
     };
 
-    var callbackData = {err: [], data: []};
+    // Init the initial collections
+    if (!options.collections.length) {
+        return callback(null, null);
+    }
+
+    var callbackData = {err: [], data: [], dbs: {}};
     for (var i = 0; i < options.collections.length; ++i) {
-        self.initCollection(options.collections[i], function (err, data) {
-            if (--i <= 0) {
-                if (!callbackData.err.length) {
-                    callbackData.err = null;
+        (function (cCol) {
+            callbackData.dbs[cCol.collection] = self.initCollection(cCol, function (err, data) {
+                if (err) {
+                    callbackData.err.push(err);
+                    delete callbackData.dbs[cCol.collection];
+                } else {
+                    callbackData.data.push(data);
                 }
-                return callback(callbackData.err, callbackData.data);
-            }
-        });
+                if (!--i) {
+                    if (!callbackData.err.length) {
+                        callbackData.err = null;
+                    }
+                    return callback(callbackData.err, callbackData.dbs, callbackData.data);
+                }
+            });
+        })(options.collections[i]);
     }
 
     return self;

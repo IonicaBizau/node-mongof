@@ -1,11 +1,16 @@
 // Dependencies
-var JsonDb = require("../index")
+var MongoSyncFiles = require("../index")
   , Faker = require("faker")
   ;
 
-// Create database instance
-var MyDatabase = new JsonDb();
-
+/**
+ * generateFakeDataArray
+ * Generates fake data for inserting it in the MongoDB database.
+ *
+ * @name generateFakeDataArray
+ * @function
+ * @return {Array} An array with fake data.
+ */
 function generateFakeDataArray() {
     var docs = [];
     for (var i = 0; i < 30; ++i) {
@@ -18,17 +23,21 @@ function generateFakeDataArray() {
     return docs;
 }
 
-// Create collection instance
-var MyAwesomeCollection = MyDatabase.initCollection({
-    inputFile: __dirname + "/docs-in.json"
-  , outputFile: __dirname + "/docs-out.json"
-  , uri: "mongodb://localhost:27017/test"
-  , collection: "myCol"
-  , autoInit: true
-}, function (err) {
+// Create database instance
+var MyDatabase = new MongoSyncFiles({
+    collections: [{
+        inputFile: __dirname + "/docs-in.json"
+      , outputFile: __dirname + "/docs-out.json"
+      , uri: "mongodb://localhost:27017/test"
+      , collection: "myCol"
+      , autoInit: true
+    }]
+}, function (err, collections) {
 
     // Handle error
     if (err) { throw err; }
+
+    var MyAwesomeCollection = collections.myCol;
 
     // Run a Mongo request
     MyAwesomeCollection.find({}).toArray(function (err, docs) {
