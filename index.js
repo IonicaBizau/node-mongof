@@ -44,6 +44,8 @@ var MongoSyncFiles = module.exports = function (options, callback) {
     self._instance = this;
     self._cache = {};
 
+    callback = callback || function () {};
+
     /**
      * addInCache
      * Cache database and collection
