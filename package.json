@@ -1,6 +1,6 @@
 {
   "name": "mongo-sync-files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sync MongoDB collections with JSON files.",
   "main": "index.js",
   "directories": {
