@@ -123,7 +123,7 @@ var MongoSyncFiles = module.exports = function (options) {
           , outputFile = options.outputFile
           , collection = options.collection
           , collectionInstance = new EventEmitter()
-          , outFields = options.outFields || { _id: 0 };
+          , outFields = options.outFields || { _id: 0 }
           ;
 
         collectionInstance._options = options;
@@ -184,14 +184,14 @@ var MongoSyncFiles = module.exports = function (options) {
                         }
 
                         return col[key].apply(col, args);
-                    }
+                    };
                 })(key);
             }
 
             if (options.autoInit === true) {
                 try {
-                    data = require(Path.resolve(options.inputFile))
-                } catch (e) { data = null }
+                    data = require(Path.resolve(options.inputFile));
+                } catch (e) { data = null; }
                 (function (data) {
                     if (data && data.length) {
                         collectionInstance.remove({}, {multi: true}, function (err) {
