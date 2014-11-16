@@ -22,6 +22,7 @@ var JsonDb = module.exports = function (options) {
     options.collections = options.collections || [];
     options.ignoreSyncFor = options.ignoreSyncFor || [];
     options.ignoreCallbackFor = options.ignoreCallbackFor || ["find", "findOne"];
+    options.outFields = options.outFields || { _id: 0 };
 
     // Initialize self
     var self = new EventEmitter();
@@ -158,7 +159,7 @@ var JsonDb = module.exports = function (options) {
                                 if (err) { return opCallback.call(cSelf, err); }
 
                                 // Stringify the documents
-                                col.find({}).toArray(function (err, docs) {
+                                col.find({}, self._options.outFields).toArray(function (err, docs) {
                                     if (err) { return opCallback.call(cSelf, err); }
                                     Fs.writeFile(options.outputFile, JSON.stringify(docs, null, 2), function (err) {
                                         if (err) { return opCallback.call(cSelf, err); }
