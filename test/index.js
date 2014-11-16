@@ -3,6 +3,14 @@ var MongoSyncFiles = require("../index")
   , Faker = require("faker")
   ;
 
+/**
+ * generateFakeDataArray
+ * Generates fake data for inserting it in the MongoDB database.
+ *
+ * @name generateFakeDataArray
+ * @function
+ * @return {Array} An array with fake data.
+ */
 function generateFakeDataArray() {
     var docs = [];
     for (var i = 0; i < 30; ++i) {
