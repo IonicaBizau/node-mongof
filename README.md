@@ -122,6 +122,7 @@ Inits the collection and returns the collection instance.
  - Initial stable release.
  - Fixed `collections` array handling.
  - Added `outFields` feature.
+ - Updated `mongodb` dependency version.
 
 ## `v0.1.3`
  - Introduced an anonymous function call
