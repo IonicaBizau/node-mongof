@@ -64,11 +64,11 @@ Creates a new instance of MongoSyncFiles.
  - `ignoreCallbackFor` (array): An array with Mongo collection method names for that callback should be diabled (default: `["find", "findOne"]`).
 
 - **Function** `callback`: The callback function. Called with `err`, `collections` and `data`. `collections` is an object like this:
-```js
-{
-   "collectionName": <collectionObject>
-}
-```
+  ```js
+  {
+     "collectionName": <collectionObject>
+  }
+  ```
 
 `<collectionObject>` is an object containing all Mongo collection methods.
 
