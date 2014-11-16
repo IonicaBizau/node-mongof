@@ -1,10 +1,10 @@
 // Dependencies
-var JsonDb = require("../index")
+var MongoSyncFiles = require("../index")
   , Faker = require("faker")
   ;
 
 // Create database instance
-var MyDatabase = new JsonDb();
+var MyDatabase = new MongoSyncFiles();
 
 function generateFakeDataArray() {
     var docs = [];
