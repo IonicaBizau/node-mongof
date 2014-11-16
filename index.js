@@ -224,7 +224,8 @@ var MongoSyncFiles = module.exports = function (options, callback) {
 
     // Init the initial collections
     if (!options.collections.length) {
-        return callback(null, null);
+        callback(null, null);
+        return self;
     }
 
     var callbackData = {err: [], data: [], dbs: {}};
