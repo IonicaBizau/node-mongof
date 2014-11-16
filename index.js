@@ -20,11 +20,11 @@ var Mongo = require("mongodb")
  *
  * @param {Function} callback The callback function. Called with `err`, `collections` and `data`. `collections` is an object like this:
  *
- * ```js
- * {
- *    "collectionName": <collectionObject>
- * }
- * ```
+ *   ```js
+ *   {
+ *      "collectionName": <collectionObject>
+ *   }
+ *   ```
  *
  * `<collectionObject>` is an object containing all Mongo collection methods.
  *
