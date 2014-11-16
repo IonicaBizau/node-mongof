@@ -18,7 +18,16 @@ var Mongo = require("mongodb")
  *  - `ignoreSyncFor` (Array): An array with Mongo collection method names for that sync should be diabled (default: `[]`).
  *  - `ignoreCallbackFor` (array): An array with Mongo collection method names for that callback should be diabled (default: `["find", "findOne"]`).
  *
- * @param {Function} callback The callback function.
+ * @param {Function} callback The callback function. Called with `err`, `collections` and `data`. `collections` is an object like this:
+ *
+ * ```js
+ * {
+ *    "collectionName": <collectionObject>
+ * }
+ * ```
+ *
+ * `<collectionObject>` is an object containing all Mongo collection methods.
+ *
  * @return {EventEmitter} The instance of MongoSyncFiles object.
  */
 var MongoSyncFiles = module.exports = function (options, callback) {
