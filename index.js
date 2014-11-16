@@ -7,20 +7,20 @@ var Mongo = require("mongodb")
   ;
 
 /**
- * JsonDb
- * Creates a new instance of JsonDb.
+ * MongoSyncFiles
+ * Creates a new instance of MongoSyncFiles.
  *
- * @name JsonDb
+ * @name MongoSyncFiles
  * @function
  * @param {Object} options An object containing the following properties:
  *
- *  - `collections` (Array): An array of strings with the collections that should be inited (default: `[]`).
+ *  - `collections` (Array): An array of objects with the needed fields for initing the collections that should be inited (default: `[]`).
  *  - `ignoreSyncFor` (Array): An array with Mongo collection method names for that sync should be diabled (default: `[]`).
  *  - `ignoreCallbackFor` (array): An array with Mongo collection method names for that callback should be diabled (default: `["find", "findOne"]`).
  *
- * @return {EventEmitter} The instance of JsonDb object
+ * @return {EventEmitter} The instance of MongoSyncFiles object.
  */
-var JsonDb = module.exports = function (options) {
+var MongoSyncFiles = module.exports = function (options) {
 
     // Force options to be an object and process data
     options = Object(options);
@@ -103,7 +103,16 @@ var JsonDb = module.exports = function (options) {
      *
      * @name initCollection
      * @function
-     * @param {Object} options The options for initing the collection
+     * @param {Object} options An object containing the following properties:
+     *
+     *  - `uri` (String): The MongoDB uri.
+     *  - `inputFile` (String): The path to the input file.
+     *  - `outputFile` (String): The path to the output file.
+     *  - `outputFile` (String): The path to the output file.
+     *  - `collection` (String): The collection that should be synced.
+     *  - `outFields` (String): An object with fields that should be exported/ignored on stringify (default: `{_id: 0}`).
+     *  - `autoInit` (Boolean): If `true`, the collection will be inited with input data.
+     *
      * @param {Function} callback The callback function
      * @return {EventEmitter} The instance of collection object.
      */
