@@ -118,6 +118,9 @@ Inits the collection and returns the collection instance.
 - **EventEmitter** The instance of collection object.
 
 # Changelog
+## `1.0.1`
+ - Fixed #3. When `collections` variable is an empty array, return `self` variable.
+
 ## `1.0.0`
  - Initial stable release.
  - Fixed `collections` array handling.
