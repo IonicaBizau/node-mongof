@@ -18,9 +18,10 @@ var Mongo = require("mongodb")
  *  - `ignoreSyncFor` (Array): An array with Mongo collection method names for that sync should be diabled (default: `[]`).
  *  - `ignoreCallbackFor` (array): An array with Mongo collection method names for that callback should be diabled (default: `["find", "findOne"]`).
  *
+ * @param {Function} callback The callback function.
  * @return {EventEmitter} The instance of MongoSyncFiles object.
  */
-var MongoSyncFiles = module.exports = function (options) {
+var MongoSyncFiles = module.exports = function (options, callback) {
 
     // Force options to be an object and process data
     options = Object(options);
@@ -210,16 +211,29 @@ var MongoSyncFiles = module.exports = function (options) {
         return collectionInstance;
     };
 
-    var callbackData = {err: [], data: []};
+    // Init the initial collections
+    if (!options.collections.length) {
+        return callback(null, null);
+    }
+
+    var callbackData = {err: [], data: [], dbs: {}};
     for (var i = 0; i < options.collections.length; ++i) {
-        self.initCollection(options.collections[i], function (err, data) {
-            if (--i <= 0) {
-                if (!callbackData.err.length) {
-                    callbackData.err = null;
+        (function (cCol) {
+            callbackData.dbs[cCol.collection] = self.initCollection(cCol, function (err, data) {
+                if (err) {
+                    callbackData.err.push(err);
+                    delete callbackData.dbs[cCol.collection];
+                } else {
+                    callbackData.data.push(data);
                 }
-                return callback(callbackData.err, callbackData.data);
-            }
-        });
+                if (!--i) {
+                    if (!callbackData.err.length) {
+                        callbackData.err = null;
+                    }
+                    return callback(callbackData.err, callbackData.dbs, callbackData.data);
+                }
+            });
+        })(options.collections[i]);
     }
 
     return self;
