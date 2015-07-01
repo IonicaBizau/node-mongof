@@ -1,5 +1,5 @@
 // Dependencies
-var MongoSyncFiles = require("../index")
+var MongoSyncFiles = require("../lib")
   , Faker = require("faker")
   ;
 
