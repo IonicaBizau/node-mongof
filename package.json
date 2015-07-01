@@ -2,7 +2,7 @@
   "name": "mongo-sync-files",
   "version": "1.0.1",
   "description": "Sync MongoDB collections with JSON files.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
@@ -13,7 +13,7 @@
     "faker": "^2.1.5"
   },
   "scripts": {
-    "test": "node test/index.js"
+    "test": "node example/index.js"
   },
   "repository": {
     "type": "git",
