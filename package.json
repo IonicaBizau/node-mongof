@@ -7,10 +7,10 @@
     "test": "test"
   },
   "dependencies": {
-    "mongodb": "^1.4.20"
+    "mongodb": "^2.0.35"
   },
   "devDependencies": {
-    "faker": "^1.0.0"
+    "faker": "^2.1.5"
   },
   "scripts": {
     "test": "node test/index.js"
