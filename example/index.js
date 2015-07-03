@@ -15,9 +15,9 @@ function generateFakeDataArray() {
     var docs = [];
     for (var i = 0; i < 30; ++i) {
         docs.push({
-            name: Faker.Name.findName()
-          , email: Faker.Internet.email()
-          , age: Faker.Helpers.randomNumber(90)
+            name: Faker.name.findName()
+          , email: Faker.internet.email()
+          , age: Faker.helpers.randomNumber(90)
         });
     }
     return docs;
@@ -25,10 +25,10 @@ function generateFakeDataArray() {
 
 // Create database instance
 var MyDatabase = new MongoSyncFiles({
-    collections: [{
+    uri: "mongodb://localhost:27017/test"
+  , collections: [{
         inputFile: __dirname + "/docs-in.json"
       , outputFile: __dirname + "/docs-out.json"
-      , uri: "mongodb://localhost:27017/test"
       , collection: "myCol"
       , autoInit: true
     }]
@@ -55,6 +55,7 @@ var MyDatabase = new MongoSyncFiles({
             if (err) { throw err; }
 
             console.log("Successfully inserted a new document: ", docs);
+            debugger
             console.log("Check out the content of the following file: ", MyAwesomeCollection._options.outputFile);
 
             // Close database
