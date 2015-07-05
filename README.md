@@ -13,21 +13,21 @@
 <!-- * * * Thanks! * * *                                                    -->
 <!---------------------------------------------------------------------------->
 
-# mongo-sync-files [![Donate now][donate-now]][paypal-donations]
+# mongof [![Donate now][donate-now]][paypal-donations]
 
 Sync MongoDB collections with JSON files.
 
 ## Installation
 
 ```sh
-$ npm i mongo-sync-files
+$ npm i mongof
 ```
 
 ## Example
 
 ```js
 // Dependencies
-var MongoSyncFiles = require("mongo-sync-files")
+var MongoSyncFiles = require("mongof")
   , Faker = require("faker")
   ;
 

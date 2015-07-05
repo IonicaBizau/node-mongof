@@ -1,5 +1,5 @@
 {
-  "name": "mongo-sync-files",
+  "name": "mongof",
   "version": "1.0.1",
   "description": "Sync MongoDB collections with JSON files.",
   "main": "lib/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:IonicaBizau/node-mongo-sync-files.git"
+    "url": "git@github.com:IonicaBizau/node-mongof.git"
   },
   "keywords": [
     "mongo",
@@ -27,9 +27,9 @@
     "files"
   ],
   "author": "Ionică Bizău <bizauionica@gmail.com>",
-  "license": "MIT",
+  "license": "KINDLY",
   "bugs": {
-    "url": "https://github.com/IonicaBizau/node-mongo-sync-files/issues"
+    "url": "https://github.com/IonicaBizau/node-mongof/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/node-mongo-sync-files"
+  "homepage": "https://github.com/IonicaBizau/node-mongof"
 }
