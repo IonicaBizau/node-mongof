@@ -27,7 +27,7 @@ $ npm i mongof
 
 ```js
 // Dependencies
-var MongoSyncFiles = require("mongof")
+var Mongof = require("mongof")
   , Faker = require("faker")
   ;
 
@@ -52,7 +52,7 @@ function generateFakeDataArray() {
 }
 
 // Create database instance
-var MyDatabase = new MongoSyncFiles({
+var MyDatabase = new Mongof({
     uri: "mongodb://localhost:27017/test"
   , collections: [{
         inputFile: __dirname + "/docs-in.json"
@@ -96,14 +96,16 @@ var MyDatabase = new MongoSyncFiles({
 
 ## Documentation
 
-### `MongoSyncFiles(options, callback)`
-Creates a new instance of MongoSyncFiles.
+### `Mongof(options, callback)`
+Creates a new instance of Mongof.
 
 #### Params
 - **Object** `options`: An object containing the following properties:
  - `collections` (Array): An array of objects with the needed fields for initing the collections that should be inited (default: `[]`).
  - `ignore_sync_for` (Array): An array with Mongo collection method names for that sync should be diabled (default: `[]`).
  - `ignore_callback_for` (array): An array with Mongo collection method names for that callback should be diabled (default: `["find", "findOne"]`).
+ - `uri` (String): The databse uri.
+ - `db` (String): The databse name. If provided, the `uri` field will be overriden, with the `localhost:27017` Mongo databse uri.
 - **Function** `callback`: The callback function. Called with `err`, `collections` and `data`. `collections` is an object like this:
   ```js
   {
@@ -114,7 +116,7 @@ Creates a new instance of MongoSyncFiles.
 `<collectionObject>` is an object containing all Mongo collection methods.
 
 #### Return
-- **EventEmitter** The instance of MongoSyncFiles object.
+- **EventEmitter** The instance of Mongof object.
 
 ### `addInCache(uri, dbObj, colName, colObj)`
 Cache database and collection in the internal cache.
@@ -126,7 +128,7 @@ Cache database and collection in the internal cache.
 - **Collection** `colObj`: The collection object (optional).
 
 #### Return
-- **MongoSyncFiles** The `MongoSyncFiles` instance.
+- **Mongof** The `Mongof` instance.
 
 ### `getDatabase(uri, callback)`
 Returns (via callback) a database object from cache or fetched via Mongo functions.
@@ -136,7 +138,7 @@ Returns (via callback) a database object from cache or fetched via Mongo functio
 - **Function** `callback`: The callback function
 
 #### Return
-- **MongoSyncFiles** The `MongoSyncFiles` instance.
+- **Mongof** The `Mongof` instance.
 
 ### `getCollection(dbUri, collection, callback)`
 Returns (via callback) the collection object from cache
@@ -147,7 +149,7 @@ Returns (via callback) the collection object from cache
 - **Function** `callback`: The callback function
 
 #### Return
-- **MongoSyncFiles** The `MongoSyncFiles` instance.
+- **Mongof** The `Mongof` instance.
 
 ### `initCollection(options, callback)`
 Inits the collection and returns the collection instance.
