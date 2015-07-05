@@ -1,5 +1,5 @@
 // Dependencies
-var MongoSyncFiles = require("../lib")
+var Mongof = require("../lib")
   , Faker = require("faker")
   ;
 
@@ -24,7 +24,7 @@ function generateFakeDataArray() {
 }
 
 // Create database instance
-var MyDatabase = new MongoSyncFiles({
+var MyDatabase = new Mongof({
     uri: "mongodb://localhost:27017/test"
   , collections: [{
         inputFile: __dirname + "/docs-in.json"
