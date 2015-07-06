@@ -30,8 +30,11 @@
   },
   "homepage": "https://github.com/IonicaBizau/node-mongof",
   "dependencies": {
+    "ul": "^5.0.0",
+    "same-time": "^2.0.0",
+    "mongodb": "^2.0.35",
     "r-json": "^1.0.0",
     "w-json": "^1.0.0",
-    "mongodb": "^2.0.35"
+    "abs": "^1.0.0"
   }
 }
