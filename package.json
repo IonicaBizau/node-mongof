@@ -4,10 +4,7 @@
   "description": "Sync MongoDB collections with JSON files.",
   "main": "lib/index.js",
   "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "mongodb": "^2.0.35"
+    "example": "example"
   },
   "devDependencies": {
     "faker": "^2.1.5"
@@ -31,5 +28,12 @@
   "bugs": {
     "url": "https://github.com/IonicaBizau/node-mongof/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/node-mongof"
+  "homepage": "https://github.com/IonicaBizau/node-mongof",
+  "dependencies": {
+    "abs": "^1.0.0",
+    "same-time": "^2.0.0",
+    "faker": "^2.1.5",
+    "ul": "^5.0.0",
+    "mongodb": "^2.0.39"
+  }
 }
