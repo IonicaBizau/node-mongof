@@ -5,7 +5,7 @@ Sync MongoDB collections with JSON files.
 ## Installation
 
 ```sh
-$ npm i -g mongof
+$ npm i mongof
 ```
 
 ## Example
