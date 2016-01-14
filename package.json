@@ -1,6 +1,6 @@
 {
   "name": "mongof",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Sync MongoDB collections with JSON files.",
   "main": "lib/index.js",
   "directories": {
