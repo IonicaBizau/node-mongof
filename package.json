@@ -1,6 +1,6 @@
 {
   "name": "mongof",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Sync MongoDB collections with JSON files.",
   "main": "lib/index.js",
   "directories": {
@@ -23,7 +23,7 @@
     "sync",
     "files"
   ],
-  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
+  "author": "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/node-mongof/issues"
@@ -40,12 +40,11 @@
     "bin/",
     "app/",
     "lib/",
-    "build/",
     "dist/",
     "src/",
+    "scripts/",
     "resources/",
     "menu/",
-    "scripts/",
     "cli.js",
     "index.js"
   ]
