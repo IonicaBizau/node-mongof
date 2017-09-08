@@ -6,6 +6,7 @@ You can see below the API reference of this module.
 Creates a new instance of Mongof.
 
 #### Params
+
 - **Object** `options`: An object containing the following properties:
  - `collections` (Array): An array of objects with the needed fields for initing the collections that should be inited (default: `[]`).
  - `ignore_sync_for` (Array): An array with Mongo collection method names for that sync should be diabled (default: `[]`).
@@ -28,6 +29,7 @@ Creates a new instance of Mongof.
 Cache database and collection in the internal cache.
 
 #### Params
+
 - **String** `uri`: The Mongo database URI string.
 - **Database** `dbObj`: The database object.
 - **String** `colName`: The collection name (optional).
@@ -40,6 +42,7 @@ Cache database and collection in the internal cache.
 Returns (via callback) a database object from cache or fetched via Mongo functions.
 
 #### Params
+
 - **String** `uri`: The Mongo database URI string
 - **Function** `callback`: The callback function
 
@@ -50,6 +53,7 @@ Returns (via callback) a database object from cache or fetched via Mongo functio
 Returns (via callback) the collection object from cache
 
 #### Params
+
 - **String** `dbUri`: The Mongo database URI string
 - **String** `collection`: Collection name
 - **Function** `callback`: The callback function
@@ -61,6 +65,7 @@ Returns (via callback) the collection object from cache
 Inits the collection and returns the collection instance.
 
 #### Params
+
 - **Object** `options`: An object containing the following properties:
  - `inputFile` (String): The path to the input file.
  - `outputFile` (String): The path to the output file.
